@@ -7,7 +7,7 @@ var screen_size
 func _ready():
 	screen_size = get_viewport_rect().size
 
-
+# This is testing github
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var velocity = Vector2.ZERO
