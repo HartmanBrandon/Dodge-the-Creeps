@@ -44,3 +44,8 @@ func _on_body_entered(body):
 	hit.emit()
 	# Must be deferred as we cant change physics prop
 	$CollisionShape2D.set_deferred("disabled", true)
+
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
