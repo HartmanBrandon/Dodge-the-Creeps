@@ -9,17 +9,12 @@ func _ready():
 	new_game()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
-func _on_player_hit():
-	pass # Replace with function body.
-
 func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
+	
+#func _on_player_hit():
+	#pass # Replace with function body.
 
 func new_game():
 	score = 0
@@ -57,4 +52,3 @@ func _on_mob_timer_timeout():
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(mob)
-	
