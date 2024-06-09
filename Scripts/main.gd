@@ -8,14 +8,10 @@ var score
 func _ready():
 	new_game()
 
-
 func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	
-#func _on_player_hit():
-	#pass # Replace with function body.
-
 func new_game():
 	score = 0
 	$Player.start($StartPosition.position)
