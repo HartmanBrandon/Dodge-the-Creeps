@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dkhjjl0pn1qe"]
 
 [ext_resource type="Texture2D" uid="uid://mb3ixh8sqoui" path="res://art/enemyFlyingAlt_1.png" id="1_n48x7"]
-[ext_resource type="Script" path="res://mob.gd" id="1_xj5av"]
+[ext_resource type="Script" path="res://Scripts/mob.gd" id="1_xj5av"]
 [ext_resource type="Texture2D" uid="uid://b7gr07ayob5tp" path="res://art/enemyFlyingAlt_2.png" id="2_sy3mq"]
 [ext_resource type="Texture2D" uid="uid://61hkb3uox3q0" path="res://art/enemySwimming_1.png" id="3_2d6e6"]
 [ext_resource type="Texture2D" uid="uid://dyafo6hy175ov" path="res://art/enemySwimming_2.png" id="4_pnrox"]
@@ -56,7 +56,7 @@ script = ExtResource("1_xj5av")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_4acol")
-animation = &"walk"
+animation = &"swim"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
