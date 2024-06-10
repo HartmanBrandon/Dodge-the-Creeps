@@ -1,60 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://ci3d5tdkiyysx"]
 
 [ext_resource type="PackedScene" uid="uid://550y7r3rrqu4" path="res://Scenes/player.tscn" id="1_kw26d"]
-[ext_resource type="PackedScene" uid="uid://dkhjjl0pn1qe" path="res://Scenes/mob.tscn" id="2_fqpre"]
+[ext_resource type="PackedScene" uid="uid://bdjt27bu6l2f1" path="res://Scenes/hud.tscn" id="3_8pmyt"]
 
 [sub_resource type="GDScript" id="GDScript_m1be2"]
-script/source = "extends Node
-
-@export var mob_scene: PackedScene
-var score
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	new_game()
-
-func game_over():
-	$ScoreTimer.stop()
-	$MobTimer.stop()
-	
-func new_game():
-	score = 0
-	$Player.start($StartPosition.position)
-	$StartTimer.start()
-
-func _on_score_timer_timeout():
-	score += 1
-
-func _on_start_timer_timeout():
-	$MobTimer.start()
-	$ScoreTimer.start()
-
-func _on_mob_timer_timeout():
-	# Create a new instance of the Mob scene.
-	var mob = mob_scene.instantiate()
-
-	# Choose a random location on Path2D.
-	var mob_spawn_location = $MobPath/MobSpawnLocation
-	mob_spawn_location.progress_ratio = randf()
-
-	# Set the mob's direction perpendicular to the path direction.
-	var direction = mob_spawn_location.rotation + PI / 2
-
-	# Set the mob's position to a random location.
-	mob.position = mob_spawn_location.position
-
-	# Add some randomness to the direction.
-	direction += randf_range(-PI / 4, PI / 4)
-	mob.rotation = direction
-
-	# Choose the velocity for the mob.
-	var velocity = Vector2(randf_range(150.0, 250.0), 0.0)
-	mob.linear_velocity = velocity.rotated(direction)
-
-	# Spawn the mob by adding it to the Main scene.
-	add_child(mob)
-"
 
 [sub_resource type="Curve2D" id="Curve2D_iwlof"]
 _data = {
@@ -64,7 +13,6 @@ point_count = 5
 
 [node name="Main" type="Node"]
 script = SubResource("GDScript_m1be2")
-mob_scene = ExtResource("2_fqpre")
 
 [node name="Player" parent="." instance=ExtResource("1_kw26d")]
 
@@ -87,8 +35,11 @@ curve = SubResource("Curve2D_iwlof")
 position = Vector2(0, -3)
 rotation = 0.00419285
 
-[connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[node name="HUD" parent="." instance=ExtResource("3_8pmyt")]
+
 [connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="new_game"]
